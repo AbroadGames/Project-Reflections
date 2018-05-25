@@ -19,8 +19,11 @@ public class ScoreTracking : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        localScore = (Mathf.RoundToInt(Time.time *10));
-
+        if(GameManager.Instance.PlayerisDead == false)
+        {
+            localScore = (Mathf.RoundToInt(Time.time * 10));
+ 
+        }
         score.text = localScore.ToString();
 
         GameManager.Instance.Score = localScore;

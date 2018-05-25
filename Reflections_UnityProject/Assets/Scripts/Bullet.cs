@@ -7,31 +7,29 @@ public class Bullet : MonoBehaviour {
 
     public int speed;
     public bool isRefelcted = false;
-    private GameObject other;
-   
+    private GameObject target;
+
+
     // Use this for initialization
     void Start ()
     {
         
+        target = GameObject.FindGameObjectWithTag("Player");
 
+        Vector2 dir = target.transform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         
     }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        
        if (isRefelcted == false)
         {
-            // GetComponent<Rigidbody2D>().AddForce(transform.right * speed, ForceMode2D.Force);
-             GetComponent<Rigidbody2D>().velocity = transform.right * speed;
-        }
-        if (isRefelcted == true)
-        {
-            // GetComponent<Rigidbody2D>().AddForce(-transform.right * speed, ForceMode2D.Force);
-
-            GetComponent<Rigidbody2D>().velocity = -transform.right * speed;
             
-
+             GetComponent<Rigidbody2D>().velocity = transform.right * speed;
         }
 
     }
@@ -41,7 +39,12 @@ public class Bullet : MonoBehaviour {
     {
         if(other.gameObject.tag == "Mirror")
         {
-           
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.color = Color.gray;
+
+            GetComponent<Rigidbody2D>().velocity = Vector2.Reflect(transform.position, other.transform.up) * speed;
+
+
 
             isRefelcted = true;
             gameObject.tag = "Reflected";

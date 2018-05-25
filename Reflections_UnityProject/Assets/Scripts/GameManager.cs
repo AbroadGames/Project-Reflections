@@ -25,15 +25,14 @@ public class GameManager : MonoBehaviour
 
      public int Score { get; set; }
      public bool PlayerisDead { get; set; }
-     public int CurrentEnemies { get; set; }
-     public int MaxEnemies { get; set; }
-
+     
     //Methods 
 
    
     public void GameOver()
     {
         Debug.Log("GameOver!!!");
+
     }
 
     public void KillPlayer()
