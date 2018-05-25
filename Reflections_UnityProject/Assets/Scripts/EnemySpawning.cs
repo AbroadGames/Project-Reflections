@@ -55,27 +55,27 @@ public class EnemySpawning : MonoBehaviour {
            
         if (localScore == 50)
         {
-            respawnTime1 = 2f;
+            respawnTime1 = 1.5f;
             
         }
         if (localScore == 100)
         {
-            respawnTime1 = 1.5f;
+            respawnTime1 = 1f;
             
         }
         if (localScore == 200)
         {
-            respawnTime1 = 1.3f;
+            respawnTime1 = 0.7f;
             
         }
         if (localScore == 300)
         {
-            respawnTime1 = 1f;
+            respawnTime1 = 0.5f;
             
         }
         if (localScore == 500)
         {
-            respawnTime1 = 0.8f;
+            respawnTime1 = 0.3f;
             
         }
     }
