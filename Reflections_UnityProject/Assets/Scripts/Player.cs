@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 
 {
-    
+    public float speed;
+    public Rigidbody2D rb;
 
     private void PlayerMovement()
     {
@@ -14,6 +15,13 @@ public class Player : MonoBehaviour
         Vector3 dir = Input.mousePosition - pos;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        //movement :/
+        float input_x = Input.GetAxisRaw("Horizontal");
+        float input_y = Input.GetAxisRaw("Vertical");
+
+        rb.position += new Vector2(input_x, input_y).normalized * speed * Time.deltaTime;
+
     }
 
 
@@ -34,6 +42,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.PlayerisDead = false;
         
+
         
 	}
 	
@@ -42,6 +51,11 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
 
+
+        if (Input.GetKey(KeyCode.Escape)) // quit temp
+        {
+            Application.Quit();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

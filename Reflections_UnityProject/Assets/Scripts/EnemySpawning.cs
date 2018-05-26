@@ -5,21 +5,82 @@ using UnityEngine;
 public class EnemySpawning : MonoBehaviour {
 
     //varribles
-    [SerializeField] private int localScore;
-    public float respawnTime1;
-    public bool respawnTime2 = false;
-    public bool respawnTime4 = false;
-    public GameObject enemy;
-    public GameObject bullet;
-    private Vector2 position;
+    private float localScore;
+    [SerializeField]private float respawnTime = 1.5f;
+
+   
     
+    [System.Serializable]
+    public class Spawns
+    {
+        public string name;
+        public GameObject spawnObj;
+        public int spawnRarity;
+        public int DistanceFromPlayer;
+        public int DecayRate;
+    }
+
+    public List<Spawns> spawns = new List<Spawns>();
+    public int spawnChance;
+
+    void CalculateSpawn()
+    {
+        int calc_spawnChance = Random.Range(0, 101);
+
+        if(calc_spawnChance > spawnChance)
+        {
+            return;
+        }
+
+        if (calc_spawnChance <= spawnChance)
+        {
+            int spawnWeight = 0;
+
+            for(int i = 0; i < spawns.Count; i++)
+            {
+                spawnWeight += spawns[i].spawnRarity;
+            }
+
+            int randomValue = Random.Range(0, spawnWeight);
+
+            for (int j = 0; j < spawns.Count; j++)
+            {
+                if(randomValue <= spawns[j].spawnRarity)
+                {
+                    Vector2 pos = Random.insideUnitCircle.normalized * spawns[j].DistanceFromPlayer;
+                    GameObject Instance = Instantiate(spawns[j].spawnObj, pos, Quaternion.identity);
+                    
+
+                    if (spawns[j].DecayRate > 0)
+                    {
+                        Destroy(Instance, spawns[j].DecayRate);
+                    }
+                    return;
+                }
+                randomValue -= spawns[j].spawnRarity;
+            }
+        }
+    }
+
+    IEnumerator SpawnCoroutine()
+    {
+        while (GameManager.Instance.PlayerisDead == false)
+        {
+            
+            CalculateSpawn();
+            yield return new WaitForSeconds(respawnTime);
+        }
+        yield return null;
+    }
+
 
     // Use this for initialization
     void Start ()
     {
   
-        respawnTime1 = 1.5f;
-        
+        respawnTime = 1.5f;
+
+        StartCoroutine(SpawnCoroutine());
     }
 
     
@@ -27,92 +88,26 @@ public class EnemySpawning : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        //Difficulty
         if (GameManager.Instance.PlayerisDead == false)
         {
-            if (respawnTime4 == false)
+            if (respawnTime > 0.4f)
             {
-                Invoke("SpawnEnemy", respawnTime1 * 4);
-                respawnTime4 = true;
+                respawnTime -= localScore / 10000 * Time.deltaTime;
             }
-            if (respawnTime2 == false)
-            {
-                Invoke("SpawnBullet", respawnTime1);
-                respawnTime2 = true;
-            }
-            Respawning();
+                 
+            
         }
            
-        
-
         localScore = GameManager.Instance.Score;
-   
+ 
 
     }
 
-    private void Respawning()
-    {
-
-           
-        if (localScore == 50)
-        {
-            respawnTime1 = 1.5f;
-            
-        }
-        if (localScore == 100)
-        {
-            respawnTime1 = 1f;
-            
-        }
-        if (localScore == 200)
-        {
-            respawnTime1 = 0.7f;
-            
-        }
-        if (localScore == 300)
-        {
-            respawnTime1 = 0.5f;
-            
-        }
-        if (localScore == 500)
-        {
-            respawnTime1 = 0.3f;
-            
-        }
-    }
-
-
+    
    
 
 
-    private void SpawnBullet()
-    {
-   
-        Vector2 pos = Random.insideUnitCircle.normalized * 12;
-        Invoke("SetRespawn2toFalse", 0.02f);
-
-        GameObject bulletInstance = Instantiate(bullet, pos, Quaternion.identity);
-        Destroy(bulletInstance, 5);
-
-    }
-
-    private void SpawnEnemy()
-    {
-
-        Vector2 pos = Random.insideUnitCircle.normalized * 7;
-        Invoke("SetRespawn4toFalse", 2f);
-
-        Instantiate(enemy, pos, Quaternion.identity);
-        
-    }
-
-    private void SetRespawn2toFalse()
-    {
-        respawnTime2 = false;
-    }
-
-    private void SetRespawn4toFalse()
-    {
-        respawnTime4 = false;
-    }
+  
 
 }
