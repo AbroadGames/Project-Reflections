@@ -147,7 +147,7 @@ MonoBehaviour:
   spawns:
   - name: BasicEnemy
     spawnObj: {fileID: 1390927836759706, guid: cf9b7d6bfd2486543a1079f62e9874a5, type: 2}
-    spawnRarity: 5
+    spawnRarity: 9
     DistanceFromPlayer: 7
     DecayRate: 6
   - name: BasicBullet
@@ -157,9 +157,14 @@ MonoBehaviour:
     DecayRate: 5
   - name: FastBullet
     spawnObj: {fileID: 1626612620824452, guid: cb37d9cd691646240b55a5637ad051d7, type: 2}
-    spawnRarity: 3
+    spawnRarity: 5
     DistanceFromPlayer: 12
     DecayRate: 5
+  - name: SlowBullet
+    spawnObj: {fileID: 1317495122998094, guid: e17700b2996fd7d4da3dd766bb7feb36, type: 2}
+    spawnRarity: 6
+    DistanceFromPlayer: 12
+    DecayRate: 15
   spawnChance: 100
 --- !u!4 &159067308
 Transform:
@@ -209,7 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785ab64d5a9f58049ae13490dc9fe35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localScore: 0
   score: {fileID: 297998868}
   slows: {fileID: 1509239463}
 --- !u!1 &297998865

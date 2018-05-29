@@ -11,6 +11,7 @@ public abstract class BulletClass : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        speed = Mathf.Clamp(speed, speed, speed+2);
         target = GameObject.FindGameObjectWithTag("Player");
 
         Vector2 dir = target.transform.position - transform.position;
