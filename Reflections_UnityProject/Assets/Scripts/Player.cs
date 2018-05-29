@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public Rigidbody2D rb;
+    public TimeManager timemanager;
+   
 
     private void PlayerMovement()
     {
@@ -22,6 +24,10 @@ public class Player : MonoBehaviour
 
         rb.position += new Vector2(input_x, input_y).normalized * speed * Time.deltaTime;
 
+
+        
+           
+
     }
 
 
@@ -33,29 +39,29 @@ public class Player : MonoBehaviour
         }
     }
         
+    private void SlowTime()
+    {
 
+        if ((Input.GetMouseButtonDown(0)) && GameManager.Instance.PlayerSlows > 0)
+        {
+            GameManager.Instance.PlayerSlows--;
+            timemanager.StartSlowmo();
+        }
+    }
 
 
 
     // Use this for initialization
     void Start ()
     {
-        GameManager.Instance.PlayerisDead = false;
-        
 
-        
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         PlayerMovement();
-
-
-        if (Input.GetKey(KeyCode.Escape)) // quit temp
-        {
-            Application.Quit();
-        }
+        SlowTime();
     }
 
     void OnTriggerEnter2D(Collider2D other)

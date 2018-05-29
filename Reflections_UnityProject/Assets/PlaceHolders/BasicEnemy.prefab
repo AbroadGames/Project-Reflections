@@ -68,10 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3269e272c2d3c3740a9b1f7a5dcf8962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1942418457389168, guid: 6b04c5fc2bf17834fa6a791bd55bb50f, type: 2}
-  emiter: {fileID: 1390927836759706}
-  cooldown: 2
-  warmup: 2
 --- !u!212 &212531777472798784
 SpriteRenderer:
   m_ObjectHideFlags: 1

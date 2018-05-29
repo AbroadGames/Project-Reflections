@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 159067308}
   - component: {fileID: 159067309}
   - component: {fileID: 159067307}
+  - component: {fileID: 159067310}
+  - component: {fileID: 159067311}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -145,19 +147,19 @@ MonoBehaviour:
   spawns:
   - name: BasicEnemy
     spawnObj: {fileID: 1390927836759706, guid: cf9b7d6bfd2486543a1079f62e9874a5, type: 2}
-    spawnRarity: 20
+    spawnRarity: 5
     DistanceFromPlayer: 7
-    DecayRate: 0
+    DecayRate: 6
   - name: BasicBullet
     spawnObj: {fileID: 1942418457389168, guid: 6b04c5fc2bf17834fa6a791bd55bb50f, type: 2}
     spawnRarity: 90
     DistanceFromPlayer: 12
     DecayRate: 5
-  - name: RapidEnemy
-    spawnObj: {fileID: 1269693037138964, guid: 04e5754d53d9c0742a604e0dba7cb8ed, type: 2}
-    spawnRarity: 5
-    DistanceFromPlayer: 8
-    DecayRate: 0
+  - name: FastBullet
+    spawnObj: {fileID: 1626612620824452, guid: cb37d9cd691646240b55a5637ad051d7, type: 2}
+    spawnRarity: 3
+    DistanceFromPlayer: 12
+    DecayRate: 5
   spawnChance: 100
 --- !u!4 &159067308
 Transform:
@@ -183,6 +185,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4d788f6bbe2a445bc4f5b9348e69e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &159067310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159067306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a1e0bfc2c31a840a99d4aca65c7e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowmoFactor: 0.02
+  slowmoLength: 5
+--- !u!114 &159067311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159067306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785ab64d5a9f58049ae13490dc9fe35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localScore: 0
+  score: {fileID: 297998868}
+  slows: {fileID: 1509239463}
 --- !u!1 &297998865
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +222,6 @@ GameObject:
   - component: {fileID: 297998866}
   - component: {fileID: 297998869}
   - component: {fileID: 297998868}
-  - component: {fileID: 297998867}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -219,19 +247,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -111.07001}
   m_SizeDelta: {x: 159.27, y: 132.14001}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &297998867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 297998865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785ab64d5a9f58049ae13490dc9fe35d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localScore: 0
-  score: {fileID: 0}
 --- !u!114 &297998868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +508,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 297998866}
+  - {fileID: 1509239461}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -551,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   rb: {fileID: 1097465287}
+  timemanager: {fileID: 159067310}
 --- !u!212 &1097465285
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -757,6 +774,80 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1509239460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1509239461}
+  - component: {fileID: 1509239464}
+  - component: {fileID: 1509239463}
+  m_Layer: 5
+  m_Name: SlowmoCount
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1509239461
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509239460}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 654716930}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 159.27, y: 133.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1509239463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509239460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 40
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 119
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &1509239464
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509239460}
 --- !u!1 &1712962552
 GameObject:
   m_ObjectHideFlags: 0
