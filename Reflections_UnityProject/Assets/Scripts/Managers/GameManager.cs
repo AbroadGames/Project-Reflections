@@ -43,12 +43,12 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape)) // Quit
         {
-            Application.Quit();
+            SceneManager.LoadScene(0);
         }
 
         if (Input.GetKeyDown(KeyCode.R)) // Restart Scene
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
 
         }
 

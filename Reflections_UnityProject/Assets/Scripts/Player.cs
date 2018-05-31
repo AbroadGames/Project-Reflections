@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 	void Update ()
     {
         PlayerMovement();
-        SlowTime();
+       // SlowTime();
     }
 
     void OnTriggerEnter2D(Collider2D other)
