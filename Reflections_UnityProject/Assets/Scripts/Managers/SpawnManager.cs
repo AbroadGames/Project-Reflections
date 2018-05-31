@@ -91,7 +91,7 @@ public class SpawnManager : MonoBehaviour {
         //Difficulty
         if (GameManager.Instance.PlayerisDead == false)
         {
-            if (respawnTime > 0.3f)
+            if (respawnTime > 0.4f)
             {
                 respawnTime -= localScore / 10000 * Time.deltaTime;
             }
