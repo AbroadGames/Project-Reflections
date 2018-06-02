@@ -78,7 +78,7 @@ public class SpawnManager : MonoBehaviour {
     void Start ()
     {
   
-        respawnTime = 1.5f;
+        respawnTime = 0.8f;
 
         StartCoroutine(SpawnCoroutine());
     }
@@ -91,14 +91,27 @@ public class SpawnManager : MonoBehaviour {
         //Difficulty
         if (GameManager.Instance.PlayerisDead == false)
         {
-            if (respawnTime > 0.4f)
+            if (respawnTime > 0.35f)
             {
                 respawnTime -= localScore / 10000 * Time.deltaTime;
             }
-                 
-            
+            if (localScore == 500)
+            {
+                respawnTime = 0.3f;
+            }
+            if (localScore == 700)
+            {
+                respawnTime = 0.25f;
+            }
+            if (localScore == 1000)
+            {
+                respawnTime = 0.22f;
+            }
+
+
+
         }
-           
+
         localScore = GameManager.Instance.Score;
  
 
