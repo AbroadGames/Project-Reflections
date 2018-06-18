@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class TimeManager : MonoBehaviour
@@ -16,7 +15,6 @@ public class TimeManager : MonoBehaviour
         Time.timeScale += (1f / slowmoLength) * Time.unscaledDeltaTime;
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
 
-      
             
     }
 
